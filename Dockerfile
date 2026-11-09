@@ -1,3 +1,4 @@
+
 # syntax=docker/dockerfile:1
 
 FROM --platform=$BUILDPLATFORM golang:1.27.3-alpine AS builder
@@ -12,7 +13,7 @@ RUN git clone --depth 1 https://github.com/PasarGuard/node.git .
 RUN go mod download
 
 RUN CGO_ENABLED=0 GOOS=${TARGETOS} GOARCH=${TARGETARCH} make NAME=main build
-RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} make install_xray
+RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} make XRAY_TAG=v26.10.31 install_xray
 
 FROM alpine:latest
 
